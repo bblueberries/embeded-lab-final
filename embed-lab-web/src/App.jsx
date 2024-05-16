@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import SpeedCard from "./components/SpeedCard";
-import "./App.css";
+import database from "./utils/firebase";
+import { onValue, ref } from "firebase/database";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [speed, setSpeed] = useState(0);
 
+  useEffect(() => {
+    const speedRef = ref(database, "sensor");
+    onValue(speedRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      setSpeed(data);
+    });
+  }, []);
   return (
     <>
       <div className="flex flex-col justify-center items-center">
         <Header />
-        <SpeedCard value={80} />
+        <SpeedCard value={speed} />
       </div>
     </>
   );
