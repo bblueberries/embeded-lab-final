@@ -9,8 +9,8 @@ function App() {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
-        <Header/>
-        <SpeedCard/>
+        <Header />
+        <SpeedCard value={80} />
       </div>
     </>
   );
