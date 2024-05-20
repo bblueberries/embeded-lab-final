@@ -2,7 +2,7 @@
 #include <Firebase_ESP_Client.h>
 #include "addons/TokenHelper.h"
 #include "addons/RTDBHelper.h"
-
+#include <SoftwareSerial.h>
 const char* ssid = "September";
 const char* password = "14235678";
 const int redLedPin = D1;
@@ -18,10 +18,15 @@ bool signupOK = false;
 bool ledstatus = false;
 unsigned long sendDataPrevMillis = 0;
 
+SoftwareSerial comm(D7,D8);
 
 void setup() {
   pinMode(redLedPin, OUTPUT);
   Serial.begin(115200);
+  comm.begin(9600);
+  pinMode(D7,INPUT);
+  pinMode(D8,OUTPUT);
+
 
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
@@ -50,17 +55,38 @@ void setup() {
   Firebase.reconnectWiFi(true);
 }
 float i = 0;
+
 void loop() {
-  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 2000 || sendDataPrevMillis == 0)) {
-    sendDataPrevMillis = millis();
-    i += 1;
-    if (Firebase.RTDB.setFloat(&fbdo, "/sensor", i)) {
-      Serial.print("Write on Fire base : ");
-      Serial.print(i);
-      Serial.print("\n");
-    } else {
-      Serial.print("FAILED: " + fbdo.errorReason());
+  String data;
+  if (comm.available()) {
+
+    Serial.println("Connecting...");  
+
+    data = comm.readStringUntil('x');
+    Serial.println(data);
+    comm.write('1');
+
+    if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 2000 || sendDataPrevMillis == 0)) 
+    {
+      sendDataPrevMillis = millis();
+      if (Firebase.RTDB.setFloat(&fbdo, "/sensor", data.toFloat()) ) 
+      {
+        Serial.print("Write on Fire base : ");
+        Serial.print(data);
+        Serial.print("\n");
+      } else {
+        Serial.print("FAILED: " + fbdo.errorReason());
+      }
     }
 
+    yield();
+
   }
+    else {
+      Serial.println("waiting..");
+    }
+  delay(1000);
+  
+
+
 }
