@@ -1,9 +1,10 @@
 import React from "react";
+import { speedThreshold } from "../data/threshold";
 export default function SpeedCard({ value }) {
   let backgroundColor = "bg-green-200";
   let speed = value;
   let text = "";
-  if (value > 70) {
+  if (value > speedThreshold) {
     backgroundColor = "bg-red-400";
     text = "exceed limit";
   }
