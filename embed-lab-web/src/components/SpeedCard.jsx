@@ -1,5 +1,5 @@
 import React from "react";
-import { speedThreshold } from "../assets/data/data";
+import { speedThreshold } from "../data/threshold";
 export default function SpeedCard({ value }) {
   let backgroundColor = "bg-green-200";
   let speed = value;
