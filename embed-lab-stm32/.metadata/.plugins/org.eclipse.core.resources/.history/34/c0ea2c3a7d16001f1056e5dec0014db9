@@ -103,10 +103,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(HAL_GetTick()-startTime > maxTime){
-		  state = 0;
-		  HAL_UART_Transmit(&huart2,"Time Out\r\n", 12, HAL_MAX_DELAY);
-	  }
+	  if(HAL_GetTick()-startTime > maxTime)state = 0;
 	  if(state==0){
 		  if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_10)==GPIO_PIN_RESET){
 			  startTime = HAL_GetTick();

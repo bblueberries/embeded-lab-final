@@ -95,7 +95,6 @@ int main(void)
   uint32_t startTime = 0, endTime = 0, startTime2 = 0, endTime2 = 0;
   float distance = 0.15; //metre
   float speedLimit = 1; //m/s
-  float maxTime = 3;
   int state = 0;
   /* USER CODE END 2 */
 
@@ -103,10 +102,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(HAL_GetTick()-startTime > maxTime){
-		  state = 0;
-		  HAL_UART_Transmit(&huart2,"Time Out\r\n", 12, HAL_MAX_DELAY);
-	  }
 	  if(state==0){
 		  if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_10)==GPIO_PIN_RESET){
 			  startTime = HAL_GetTick();
@@ -171,6 +166,7 @@ int main(void)
 				  char vels[20];
 				  sprintf(vels, "%.3f x", vel);
 				  HAL_UART_Transmit(&huart1,vels,strlen(vels),HAL_MAX_DELAY);
+				  HAL_UART_Transmit(&huart1,"5555x",5,HAL_MAX_DELAY);
 				  state = 0;
 				  if(vel > speedLimit){
 					  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8,GPIO_PIN_SET);
