@@ -20,6 +20,9 @@ function App() {
       <div className="flex flex-col justify-center items-center">
         <Header />
         <SpeedCard value={speed} />
+        <div className="flex flex-col my-10 items-center">
+          <img src="public/motorcycle.png" width="600" height="600" />
+        </div>
       </div>
     </>
   );

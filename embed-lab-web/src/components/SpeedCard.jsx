@@ -15,7 +15,7 @@ export default function SpeedCard({ value }) {
       >
         <div className="flex flex-col">
           <div className="text-center font-extrabold text-xl">
-            speed (km/hr)
+            Speed (m/s)
           </div>
           <div className="text-center font-bold text-4xl m-2">{speed}</div>
           <div className=" block text-center font-extrabold text-xl text-red-900 min-h-9">
