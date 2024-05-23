@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import SpeedCard from "./components/SpeedCard";
 import database from "./utils/firebase";
+import mortorcycle from "./assets/motorcycle.png"
 import { onValue, ref } from "firebase/database";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         <Header />
         <SpeedCard value={speed} />
         <div className="flex flex-col my-10 items-center">
-          <img src="public/motorcycle.png" width="600" height="600" />
+          <img src={mortorcycle} width="600" height="600" />
         </div>
       </div>
     </>
