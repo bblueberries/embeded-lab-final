@@ -1,1 +1,1 @@
-export const speedThreshold = 70;
+export const speedThreshold = 1;
